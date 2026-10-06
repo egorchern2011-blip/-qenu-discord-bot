@@ -644,3 +644,1697 @@ client.on(Events.MessageDelete, async message => {
 });
 
 client.login(TOKEN);
+async function setupServer(guild) {
+  console.log("Начинаю настройку сервера...");
+
+  // =========================
+  // РОЛИ
+  // =========================
+
+  const roles = {};
+
+  roles.owner = await getOrCreateRole(
+    guild,
+    roleNames.owner,
+    roleColors.owner,
+    [PermissionFlagsBits.Administrator]
+  );
+
+  roles.deputy = await getOrCreateRole(
+    guild,
+    roleNames.deputy,
+    roleColors.deputy,
+    [PermissionFlagsBits.Administrator]
+  );
+
+  roles.admin = await getOrCreateRole(
+    guild,
+    roleNames.admin,
+    roleColors.admin,
+    [
+      PermissionFlagsBits.BanMembers,
+      PermissionFlagsBits.KickMembers,
+      PermissionFlagsBits.ModerateMembers,
+      PermissionFlagsBits.ManageMessages
+    ]
+  );
+
+  roles.moderator = await getOrCreateRole(
+    guild,
+    roleNames.moderator,
+    roleColors.moderator,
+    [
+      PermissionFlagsBits.KickMembers,
+      PermissionFlagsBits.ModerateMembers,
+      PermissionFlagsBits.ManageMessages
+    ]
+  );
+
+  roles.support = await getOrCreateRole(
+    guild,
+    roleNames.support,
+    roleColors.support,
+    []
+  );
+
+  roles.helper = await getOrCreateRole(
+    guild,
+    roleNames.helper,
+    roleColors.helper,
+    []
+  );
+
+  roles.sponsorVip = await getOrCreateRole(
+    guild,
+    roleNames.sponsorVip,
+    roleColors.sponsorVip,
+    []
+  );
+
+  roles.sponsorPremium = await getOrCreateRole(
+    guild,
+    roleNames.sponsorPremium,
+    roleColors.sponsorPremium,
+    []
+  );
+
+  roles.sponsor = await getOrCreateRole(
+    guild,
+    roleNames.sponsor,
+    roleColors.sponsor,
+    []
+  );
+
+  roles.member = await getOrCreateRole(
+    guild,
+    roleNames.member,
+    roleColors.member,
+    []
+  );
+
+  roles.male = await getOrCreateRole(
+    guild,
+    roleNames.male,
+    roleColors.male,
+    []
+  );
+
+  roles.female = await getOrCreateRole(
+    guild,
+    roleNames.female,
+    roleColors.female,
+    []
+  );
+
+  roles.dota = await getOrCreateRole(
+    guild,
+    roleNames.dota,
+    roleColors.dota,
+    []
+  );
+
+  roles.anime = await getOrCreateRole(
+    guild,
+    roleNames.anime,
+    roleColors.anime,
+    []
+  );
+
+  roles.youtube = await getOrCreateRole(
+    guild,
+    roleNames.youtube,
+    roleColors.youtube,
+    []
+  );
+
+  roles.twitch = await getOrCreateRole(
+    guild,
+    roleNames.twitch,
+    roleColors.twitch,
+    []
+  );
+
+  roles.creator = await getOrCreateRole(
+    guild,
+    roleNames.creator,
+    roleColors.creator,
+    []
+  );
+
+  // =========================
+  // КАТЕГОРИИ
+  // =========================
+
+  const entrance = await getOrCreateCategory(
+    guild,
+    names.categories.entrance
+  );
+
+  const community = await getOrCreateCategory(
+    guild,
+    names.categories.community
+  );
+
+  const meet = await getOrCreateCategory(
+    guild,
+    names.categories.meet
+  );
+
+  const gaming = await getOrCreateCategory(
+    guild,
+    names.categories.gaming
+  );
+
+  const creators = await getOrCreateCategory(
+    guild,
+    names.categories.creators
+  );
+
+  const voice = await getOrCreateCategory(
+    guild,
+    names.categories.voice
+  );
+
+  const support = await getOrCreateCategory(
+    guild,
+    names.categories.support
+  );
+
+  const sponsors = await getOrCreateCategory(
+    guild,
+    names.categories.sponsors
+  );
+
+  const staff = await getOrCreateCategory(
+    guild,
+    names.categories.staff
+  );
+
+  const logs = await getOrCreateCategory(
+    guild,
+    names.categories.logs
+  );
+
+  // =========================
+  // ENTRANCE
+  // =========================
+
+  const welcome = await getOrCreateText(
+    guild,
+    "👋・welcome",
+    entrance,
+    "Добро пожаловать на сервер Qenu!"
+  );
+
+  const rules = await getOrCreateText(
+    guild,
+    "📜・rules",
+    entrance,
+    "Правила сервера"
+  );
+
+  const rolesChannel = await getOrCreateText(
+    guild,
+    "🎭・roles",
+    entrance,
+    "Выбор ролей"
+  );
+
+  // =========================
+  // COMMUNITY
+  // =========================
+
+  const general = await getOrCreateText(
+    guild,
+    "💬・general",
+    community
+  );
+
+  const media = await getOrCreateText(
+    guild,
+    "🖼・media",
+    community
+  );
+
+  const memes = await getOrCreateText(
+    guild,
+    "😂・memes",
+    community
+  );
+
+  const music = await getOrCreateText(
+    guild,
+    "🎵・music",
+    community
+  );
+
+  // =========================
+  // MEET
+  // =========================
+
+  const dating = await getOrCreateText(
+    guild,
+    "💗・знакомства",
+    meet
+  );
+
+  const selfies = await getOrCreateText(
+    guild,
+    "📸・селфи",
+    meet
+  );
+
+  const friends = await getOrCreateText(
+    guild,
+    "👥・ищу-друзей",
+    meet
+  );
+
+  const couple = await getOrCreateText(
+    guild,
+    "❤️・ищу-пару",
+    meet
+  );
+
+  const teammate = await getOrCreateText(
+    guild,
+    "🎮・ищу-тиммейта",
+    meet
+  );
+
+  // =========================
+  // GAMING
+  // =========================
+
+  const gamingChat = await getOrCreateText(
+    guild,
+    "🎮・gaming",
+    gaming
+  );
+
+  const dota = await getOrCreateText(
+    guild,
+    "🔥・dota-2",
+    gaming
+  );
+
+  const party = await getOrCreateText(
+    guild,
+    "👥・поиск-пати",
+    gaming
+  );
+
+  const moments = await getOrCreateText(
+    guild,
+    "🎥・moments",
+    gaming
+  );
+
+  // =========================
+  // CREATORS
+  // =========================
+
+  const youtube = await getOrCreateText(
+    guild,
+    "▶・youtube",
+    creators
+  );
+
+  const twitch = await getOrCreateText(
+    guild,
+    "🔴・twitch",
+    creators
+  );
+
+  const announcements = await getOrCreateText(
+    guild,
+    "📢・announcements",
+    creators
+  );
+
+  const clips = await getOrCreateText(
+    guild,
+    "🎬・clips",
+    creators
+  );
+
+  // =========================
+  // VOICE
+  // =========================
+
+  const generalVoice = await getOrCreateVoice(
+    guild,
+    "🔊・Общение",
+    voice
+  );
+
+  const dotaVoice = await getOrCreateVoice(
+    guild,
+    "🎮・Dota 2",
+    voice
+  );
+
+  const animeVoice = await getOrCreateVoice(
+    guild,
+    "🌸・Anime",
+    voice
+  );
+
+  const createRoom = await getOrCreateVoice(
+    guild,
+    "➕・Создать комнату",
+    voice
+  );
+
+  // =========================
+  // SUPPORT
+  // =========================
+
+  const ticketChannel = await getOrCreateText(
+    guild,
+    "🎫・create-ticket",
+    support
+  );
+
+  // =========================
+  // STAFF
+  // =========================
+
+  const staffRecruitment = await getOrCreateText(
+    guild,
+    "📋・набор-в-стафф",
+    staff
+  );
+
+  const staffChat = await getOrCreateText(
+    guild,
+    "💬・staff-chat",
+    staff
+  );
+
+  const staffVoice = await getOrCreateVoice(
+    guild,
+    "🛡・Staff Voice",
+    staff
+  );
+
+  // =========================
+  // SPONSORS
+  // =========================
+
+  const sponsorsChannel = await getOrCreateText(
+    guild,
+    "💎・sponsors",
+    sponsors
+  );
+
+  const sponsorChat = await getOrCreateText(
+    guild,
+    "💬・sponsor-chat",
+    sponsors
+  );
+
+  // =========================
+  // LOGS
+  // =========================
+
+  const joinLogs = await getOrCreateText(
+    guild,
+    "📥・join-leave",
+    logs
+  );
+
+  const moderationLogs = await getOrCreateText(
+    guild,
+    "🔨・moderation",
+    logs
+  );
+
+  const voiceLogs = await getOrCreateText(
+    guild,
+    "🔊・voice-log",
+    logs
+  );
+
+  const ticketLogs = await getOrCreateText(
+    guild,
+    "🎫・ticket-log",
+    logs
+  );
+
+  // =========================
+  // ПРИВАТНОСТЬ STAFF
+  // =========================
+
+  await staff.permissionOverwrites.edit(
+    guild.roles.everyone,
+    {
+      ViewChannel: false
+    }
+  );
+
+  await staff.permissionOverwrites.edit(
+    roles.admin,
+    {
+      ViewChannel: true,
+      SendMessages: true
+    }
+  );
+
+  await staff.permissionOverwrites.edit(
+    roles.moderator,
+    {
+      ViewChannel: true,
+      SendMessages: true
+    }
+  );
+
+  await staff.permissionOverwrites.edit(
+    roles.support,
+    {
+      ViewChannel: true,
+      SendMessages: true
+    }
+  );
+
+  // =========================
+  // ПРИВАТНОСТЬ LOGS
+  // =========================
+
+  await logs.permissionOverwrites.edit(
+    guild.roles.everyone,
+    {
+      ViewChannel: false
+    }
+  );
+
+  await logs.permissionOverwrites.edit(
+    roles.admin,
+    {
+      ViewChannel: true,
+      SendMessages: false
+    }
+  );
+
+  await logs.permissionOverwrites.edit(
+    roles.moderator,
+    {
+      ViewChannel: true,
+      SendMessages: false
+    }
+  );
+
+  // =========================
+  // ПРИВАТНОСТЬ SPONSORS
+  // =========================
+
+  await sponsors.permissionOverwrites.edit(
+    guild.roles.everyone,
+    {
+      ViewChannel: false
+    }
+  );
+
+  await sponsors.permissionOverwrites.edit(
+    roles.sponsor,
+    {
+      ViewChannel: true,
+      SendMessages: true
+    }
+  );
+
+  await sponsors.permissionOverwrites.edit(
+    roles.sponsorPremium,
+    {
+      ViewChannel: true,
+      SendMessages: true
+    }
+  );
+
+  await sponsors.permissionOverwrites.edit(
+    roles.sponsorVip,
+    {
+      ViewChannel: true,
+      SendMessages: true
+    }
+  );
+
+  // =========================
+  // СОХРАНЯЕМ КАНАЛЫ
+  // =========================
+
+  global.qenuChannels = {
+    welcome,
+    rules,
+    rolesChannel,
+
+    general,
+    media,
+    memes,
+    music,
+
+    dating,
+    selfies,
+    friends,
+    couple,
+    teammate,
+
+    gamingChat,
+    dota,
+    party,
+    moments,
+
+    youtube,
+    twitch,
+    announcements,
+    clips,
+
+    generalVoice,
+    dotaVoice,
+    animeVoice,
+    createRoom,
+
+    ticketChannel,
+
+    staffRecruitment,
+    staffChat,
+    staffVoice,
+
+    sponsorsChannel,
+    sponsorChat,
+
+    joinLogs,
+    moderationLogs,
+    voiceLogs,
+    ticketLogs
+  };
+
+  global.qenuRoles = roles;
+
+  console.log("✅ Структура Qenu создана.");
+}
+// =========================
+// ОДНОРАЗОВАЯ ОТПРАВКА СООБЩЕНИЯ
+// =========================
+
+async function sendOnce(channel, content) {
+  if (!channel) return;
+
+  const messages = await channel.messages.fetch({
+    limit: 20
+  });
+
+  const exists = messages.find(
+    message =>
+      message.author.id === client.user.id &&
+      message.embeds.length > 0
+  );
+
+  if (!exists) {
+    await channel.send(content);
+  }
+}
+
+// =========================
+// WELCOME
+// =========================
+
+async function sendWelcomePanel() {
+  const channel = global.qenuChannels?.welcome;
+  if (!channel) return;
+
+  const embed = new EmbedBuilder()
+    .setTitle("⛩ Добро пожаловать на Qenu!")
+    .setDescription(
+      [
+        "Добро пожаловать на наш сервер! 💙",
+        "",
+        "Здесь ты найдёшь:",
+        "🎮 игры и поиск тиммейтов",
+        "🌸 знакомства и общение",
+        "🎬 YouTube / Twitch",
+        "🎵 музыку и мемы",
+        "🎫 поддержку",
+        "",
+        "Приятного общения!"
+      ].join("\n")
+    )
+    .setColor(0x5865F2)
+    .setFooter({
+      text: "Qenu Community"
+    });
+
+  await sendOnce(channel, {
+    embeds: [embed]
+  });
+}
+
+// =========================
+// RULES
+// =========================
+
+async function sendRulesPanel() {
+  const channel = global.qenuChannels?.rules;
+  if (!channel) return;
+
+  const embed = new EmbedBuilder()
+    .setTitle("📜 Правила сервера")
+    .setDescription(
+      [
+        "**1.** Уважай других участников.",
+        "**2.** Не оскорбляй пользователей и администрацию.",
+        "**3.** Не спамь и не флуди.",
+        "**4.** Не публикуй запрещённый контент.",
+        "**5.** Не рекламируй другие проекты без разрешения.",
+        "**6.** Не используй баги и уязвимости.",
+        "**7.** Следуй указаниям администрации.",
+        "",
+        "⚠️ За нарушение правил администрация может выдать предупреждение, мут, кик или бан."
+      ].join("\n")
+    )
+    .setColor(0xED4245)
+    .setFooter({
+      text: "Qenu • Rules"
+    });
+
+  await sendOnce(channel, {
+    embeds: [embed]
+  });
+}
+
+// =========================
+// РОЛИ
+// =========================
+
+async function sendRolesPanel() {
+  const channel = global.qenuChannels?.rolesChannel;
+  if (!channel) return;
+
+  const embed = new EmbedBuilder()
+    .setTitle("🎭 Выбор ролей")
+    .setDescription(
+      [
+        "Нажми на кнопку ниже, чтобы получить интересующую тебя роль.",
+        "",
+        "♂ **Парень**",
+        "♀ **Девушка**",
+        "🎮 **Dota 2**",
+        "🌸 **Anime**",
+        "▶ **YouTube**",
+        "🔴 **Twitch**",
+        "🎬 **Creator
+        // =========================
+// ВРЕМЕННАЯ ГОЛОСОВАЯ КОМНАТА
+// =========================
+
+async function createTempVoice(interaction) {
+  const guild = interaction.guild;
+  const member = interaction.member;
+
+  const category = global.qenuChannels?.createRoom?.parent;
+
+  if (!category) return;
+
+  const channel = await guild.channels.create({
+    name: `🔊・${member.user.username}`,
+    type: ChannelType.GuildVoice,
+    parent: category.id,
+
+    permissionOverwrites: [
+      {
+        id: guild.roles.everyone.id,
+        allow: [
+          PermissionFlagsBits.ViewChannel,
+          PermissionFlagsBits.Connect
+        ]
+      },
+      {
+        id: member.id,
+        allow: [
+          PermissionFlagsBits.ViewChannel,
+          PermissionFlagsBits.Connect,
+          PermissionFlagsBits.MoveMembers,
+          PermissionFlagsBits.ManageChannels
+        ]
+      }
+    ],
+
+    reason: `Temporary voice room for ${member.user.tag}`
+  });
+
+  await member.voice.setChannel(channel);
+
+  if (global.qenuChannels?.voiceLogs) {
+    const embed = new EmbedBuilder()
+      .setTitle("🔊 Создана временная комната")
+      .addFields(
+        {
+          name: "Пользователь",
+          value: `${member} (${member.user.tag})`
+        },
+        {
+          name: "Комната",
+          value: `${channel}`
+        }
+      )
+      .setColor(0x5865F2)
+      .setTimestamp();
+
+    await global.qenuChannels.voiceLogs.send({
+      embeds: [embed]
+    });
+  }
+}
+
+// =========================
+// УДАЛЕНИЕ ПУСТОЙ ВРЕМЕННОЙ КОМНАТЫ
+// =========================
+
+async function cleanupTempVoice(channel) {
+  if (!channel) return;
+
+  if (
+    channel.type !== ChannelType.GuildVoice ||
+    !channel.parentId
+  ) {
+    return;
+  }
+
+  const createRoom =
+    global.qenuChannels?.createRoom;
+
+  if (!createRoom) return;
+
+  if (channel.parentId !== createRoom.parentId) {
+    return;
+  }
+
+  // Не удаляем обычные голосовые каналы
+  const staticChannels = [
+    "🔊・Общение",
+    "🎮・Dota 2",
+    "🌸・Anime",
+    "➕・Создать комнату",
+    "🛡・Staff Voice"
+  ];
+
+  if (staticChannels.includes(channel.name)) {
+    return;
+  }
+
+  if (!channel.name.startsWith("🔊・")) {
+    return;
+  }
+
+  if (channel.members.size === 0) {
+    try {
+      await channel.delete(
+        "Qenu temporary voice cleanup"
+      );
+
+      console.log(
+        `🗑 Удалена пустая временная комната: ${channel.name}`
+      );
+    } catch (error) {
+      console.error(
+        "Ошибка удаления временной комнаты:",
+        error
+      );
+    }
+  }
+}
+
+// =========================
+// LOG MODERATION
+// =========================
+
+async function sendModerationLog({
+  title,
+  moderator,
+  target,
+  reason,
+  color = 0xED4245
+}) {
+  const channel =
+    global.qenuChannels?.moderationLogs;
+
+  if (!channel) return;
+
+  const embed = new EmbedBuilder()
+    .setTitle(title)
+    .addFields(
+      {
+        name: "Модератор",
+        value: `${moderator} (${moderator.user.tag})`
+      },
+      {
+        name: "Пользователь",
+        value: `${target} (${target.user.tag})`
+      },
+      {
+        name: "Причина",
+        value: reason || "Не указана"
+      }
+    )
+    .setColor(color)
+    .setTimestamp();
+
+  await channel.send({
+    embeds: [embed]
+  });
+}
+
+// =========================
+// READY
+// =========================
+
+client.once(
+  Events.ClientReady,
+  async readyClient => {
+    console.log(
+      `Бот запущен: ${readyClient.user.tag}`
+    );
+
+    try {
+      await registerCommands();
+
+      const guild =
+        await client.guilds.fetch(GUILD_ID);
+
+      await guild.channels.fetch();
+      await guild.roles.fetch();
+
+      await setupServer(guild);
+
+      await sendAllPanels();
+
+      console.log(
+        "✅ Qenu Discord Bot полностью готов."
+      );
+    } catch (error) {
+      console.error(
+        "❌ Ошибка запуска:",
+        error
+      );
+    }
+  }
+);
+
+// =========================
+// INTERACTIONS
+// =========================
+
+client.on(
+  Events.InteractionCreate,
+  async interaction => {
+
+    try {
+
+      // =========================
+      // SLASH COMMANDS
+      // =========================
+
+      if (interaction.isChatInputCommand()) {
+
+        // -------------------------
+        // PING
+        // -------------------------
+
+        if (interaction.commandName === "ping") {
+
+          const latency =
+            Date.now() -
+            interaction.createdTimestamp;
+
+          return interaction.reply({
+            content:
+              `🏓 Pong!\n` +
+              `Задержка: **${latency}ms**`,
+            ephemeral: true
+          });
+        }
+
+        // -------------------------
+        // SETUP
+        // -------------------------
+
+        if (interaction.commandName === "setup") {
+
+          await interaction.deferReply({
+            ephemeral: true
+          });
+
+          await setupServer(
+            interaction.guild
+          );
+
+          await sendAllPanels();
+
+          return interaction.editReply(
+            "✅ Сервер Qenu настроен."
+          );
+        }
+
+        // -------------------------
+        // PANEL
+        // -------------------------
+
+        if (interaction.commandName === "panel") {
+
+          await interaction.deferReply({
+            ephemeral: true
+          });
+
+          await sendAllPanels();
+
+          return interaction.editReply(
+            "✅ Панели отправлены."
+          );
+        }
+
+        // -------------------------
+        // BAN
+        // -------------------------
+
+        if (interaction.commandName === "ban") {
+
+          const user =
+            interaction.options.getUser("user");
+
+          const reason =
+            interaction.options.getString("reason") ||
+            "Причина не указана";
+
+          const member =
+            await interaction.guild.members
+              .fetch(user.id)
+              .catch(() => null);
+
+          if (!member) {
+            return interaction.reply({
+              content:
+                "❌ Пользователь не найден на сервере.",
+              ephemeral: true
+            });
+          }
+
+          if (
+            !member.bannable
+          ) {
+            return interaction.reply({
+              content:
+                "❌ Я не могу забанить этого пользователя. Проверь позицию моей роли.",
+              ephemeral: true
+            });
+          }
+
+          await member.ban({
+            reason
+          });
+
+          await interaction.reply(
+            `🔨 **${user.tag}** заблокирован.\nПричина: **${reason}**`
+          );
+
+          await sendModerationLog({
+            title: "🔨 BAN",
+            moderator: interaction.member,
+            target: user,
+            reason
+          });
+
+          return;
+        }
+
+        // -------------------------
+        // KICK
+        // -------------------------
+
+        if (interaction.commandName === "kick") {
+
+          const user =
+            interaction.options.getUser("user");
+
+          const reason =
+            interaction.options.getString("reason") ||
+            "Причина не указана";
+
+          const member =
+            await interaction.guild.members
+              .fetch(user.id)
+              .catch(() => null);
+
+          if (!member) {
+            return interaction.reply({
+              content:
+                "❌ Пользователь не найден на сервере.",
+              ephemeral: true
+            });
+          }
+
+          if (!member.kickable) {
+            return interaction.reply({
+              content:
+                "❌ Я не могу кикнуть этого пользователя.",
+              ephemeral: true
+            });
+          }
+
+          await member.kick(reason);
+
+          await interaction.reply(
+            `👢 **${user.tag}** кикнут.\nПричина: **${reason}**`
+          );
+
+          await sendModerationLog({
+            title: "👢 KICK",
+            moderator: interaction.member,
+            target: user,
+            reason
+          });
+
+          return;
+        }
+
+        // -------------------------
+        // MUTE
+        // -------------------------
+
+        if (interaction.commandName === "mute") {
+
+          const user =
+            interaction.options.getUser("user");
+
+          const minutes =
+            interaction.options.getInteger("minutes");
+
+          const reason =
+            interaction.options.getString("reason") ||
+            "Причина не указана";
+
+          const member =
+            await interaction.guild.members
+              .fetch(user.id)
+              .catch(() => null);
+
+          if (!member) {
+            return interaction.reply({
+              content:
+                "❌ Пользователь не найден.",
+              ephemeral: true
+            });
+          }
+
+          if (!member.moderatable) {
+            return interaction.reply({
+              content:
+                "❌ Я не могу выдать этому пользователю тайм-аут.",
+              ephemeral: true
+            });
+          }
+
+          await member.timeout(
+            minutes * 60 * 1000,
+            reason
+          );
+
+          await interaction.reply(
+            `🔇 **${user.tag}** получил мут на **${minutes} мин.**\nПричина: **${reason}**`
+          );
+
+          await sendModerationLog({
+            title: "🔇 MUTE",
+            moderator: interaction.member,
+            target: user,
+            reason:
+              `${reason}\nСрок: ${minutes} минут`
+          });
+
+          return;
+        }
+
+        // -------------------------
+        // WARN
+        // -------------------------
+
+        if (interaction.commandName === "warn") {
+
+          const user =
+            interaction.options.getUser("user");
+
+          const reason =
+            interaction.options.getString("reason");
+
+          await interaction.reply(
+            `⚠️ **${user.tag}** получил предупреждение.\nПричина: **${reason}**`
+          );
+
+          await sendModerationLog({
+            title: "⚠️ WARN",
+            moderator: interaction.member,
+            target: user,
+            reason,
+            color: 0xFEE75C
+          });
+
+          return;
+        }
+
+        // -------------------------
+        // CLEAR
+        // -------------------------
+
+        if (interaction.commandName === "clear") {
+
+          const amount =
+            interaction.options.getInteger("amount");
+
+          const deleted =
+            await interaction.channel.bulkDelete(
+              amount,
+              true
+            );
+
+          return interaction.reply({
+            content:
+              `🧹 Удалено сообщений: **${deleted.size}**`,
+            ephemeral: true
+          });
+        }
+      }
+
+      // =========================
+      // СОЗДАТЬ ТИКЕТ
+      // =========================
+
+      if (
+        interaction.isButton() &&
+        interaction.customId === "create_ticket"
+      ) {
+        return createTicket(interaction);
+      }
+
+      // =========================
+      // ЗАКРЫТЬ ТИКЕТ
+      // =========================
+
+      if (
+        interaction.isButton() &&
+        interaction.customId === "close_ticket"
+      ) {
+
+        await interaction.reply({
+          content:
+            "🔒 Тикет будет закрыт через 3 секунды.",
+          ephemeral: true
+        });
+
+        const channel =
+          interaction.channel;
+
+        if (global.qenuChannels?.ticketLogs) {
+
+          const embed = new EmbedBuilder()
+            .setTitle("🔒 Тикет закрыт")
+            .addFields(
+              {
+                name: "Закрыл",
+                value:
+                  `${interaction.user} (${interaction.user.tag})`
+              },
+              {
+                name: "Канал",
+                value:
+                  `#${channel.name}`
+              }
+            )
+            .setColor(0xED4245)
+            .setTimestamp();
+
+          await global.qenuChannels.ticketLogs.send({
+            embeds: [embed]
+          });
+        }
+
+        setTimeout(async () => {
+
+          try {
+            await channel.delete(
+              "Qenu ticket closed"
+            );
+          } catch (error) {
+            console.error(
+              "Ошибка удаления тикета:",
+              error
+            );
+          }
+
+        }, 3000);
+
+        return;
+      }
+
+      // =========================
+      // STAFF APPLICATION
+      // =========================
+
+      if (
+        interaction.isButton() &&
+        interaction.customId === "staff_apply"
+      ) {
+
+        const modal =
+          new ModalBuilder()
+            .setCustomId("staff_application")
+            .setTitle("Заявка в Qenu Staff");
+
+        const age =
+          new TextInputBuilder()
+            .setCustomId("staff_age")
+            .setLabel("Сколько тебе лет?")
+            .setStyle(TextInputStyle.Short)
+            .setRequired(true)
+            .setMaxLength(3);
+
+        const activity =
+          new TextInputBuilder()
+            .setCustomId("staff_activity")
+            .setLabel("Сколько времени ты онлайн?")
+            .setStyle(TextInputStyle.Paragraph)
+            .setRequired(true)
+            .setMaxLength(1000);
+
+        const experience =
+          new TextInputBuilder()
+            .setCustomId("staff_experience")
+            .setLabel("Есть ли опыт в администрации?")
+            .setStyle(TextInputStyle.Paragraph)
+            .setRequired(true)
+            .setMaxLength(1000);
+
+        const reason =
+          new TextInputBuilder()
+            .setCustomId("staff_reason")
+            .setLabel("Почему именно ты?")
+            .setStyle(TextInputStyle.Paragraph)
+            .setRequired(true)
+            .setMaxLength(1500);
+
+        modal.addComponents(
+          new ActionRowBuilder().addComponents(age),
+          new ActionRowBuilder().addComponents(activity),
+          new ActionRowBuilder().addComponents(experience),
+          new ActionRowBuilder().addComponents(reason)
+        );
+
+        return interaction.showModal(modal);
+      }
+            // =========================
+      // ОТВЕТ НА ЗАЯВКУ STAFF
+      // =========================
+
+      if (
+        interaction.isModalSubmit() &&
+        interaction.customId === "staff_application"
+      ) {
+        const age =
+          interaction.fields.getTextInputValue("staff_age");
+
+        const activity =
+          interaction.fields.getTextInputValue("staff_activity");
+
+        const experience =
+          interaction.fields.getTextInputValue("staff_experience");
+
+        const reason =
+          interaction.fields.getTextInputValue("staff_reason");
+
+        const staffChannel =
+          global.qenuChannels?.staffChat;
+
+        const embed = new EmbedBuilder()
+          .setTitle("📋 Новая заявка в Staff")
+          .setDescription(
+            `Заявка от ${interaction.user}`
+          )
+          .addFields(
+            {
+              name: "👤 Пользователь",
+              value:
+                `${interaction.user} (${interaction.user.tag})`
+            },
+            {
+              name: "🎂 Возраст",
+              value: age
+            },
+            {
+              name: "⏰ Активность",
+              value: activity
+            },
+            {
+              name: "🛡 Опыт",
+              value: experience
+            },
+            {
+              name: "💬 Почему именно он?",
+              value: reason
+            }
+          )
+          .setColor(0x5865F2)
+          .setTimestamp();
+
+        if (staffChannel) {
+          await staffChannel.send({
+            embeds: [embed]
+          });
+        }
+
+        return interaction.reply({
+          content:
+            "✅ Твоя заявка отправлена администрации!",
+          ephemeral: true
+        });
+      }
+
+      // =========================
+      // КНОПКИ РОЛЕЙ
+      // =========================
+
+      if (
+        interaction.isButton() &&
+        interaction.customId.startsWith("role_")
+      ) {
+        const roleKey =
+          interaction.customId.replace("role_", "");
+
+        const role =
+          global.qenuRoles?.[roleKey];
+
+        if (!role) {
+          return interaction.reply({
+            content:
+              "❌ Эта роль сейчас недоступна.",
+            ephemeral: true
+          });
+        }
+
+        const member =
+          interaction.member;
+
+        // Мужская / женская роль
+        if (
+          roleKey === "male" ||
+          roleKey === "female"
+        ) {
+          const oppositeKey =
+            roleKey === "male"
+              ? "female"
+              : "male";
+
+          const oppositeRole =
+            global.qenuRoles?.[oppositeKey];
+
+          if (
+            oppositeRole &&
+            member.roles.cache.has(
+              oppositeRole.id
+            )
+          ) {
+            await member.roles.remove(
+              oppositeRole
+            );
+          }
+        }
+
+        if (
+          member.roles.cache.has(role.id)
+        ) {
+          await member.roles.remove(role);
+
+          return interaction.reply({
+            content:
+              `❌ Роль **${role.name}** снята.`,
+            ephemeral: true
+          });
+        }
+
+        await member.roles.add(role);
+
+        return interaction.reply({
+          content:
+            `✅ Роль **${role.name}** выдана.`,
+          ephemeral: true
+        });
+      }
+    } catch (error) {
+      console.error(
+        "Ошибка InteractionCreate:",
+        error
+      );
+
+      if (!interaction.replied && !interaction.deferred) {
+        await interaction.reply({
+          content:
+            "❌ Произошла ошибка при выполнении действия.",
+          ephemeral: true
+        }).catch(() => {});
+      }
+    }
+  }
+);
+
+// =========================
+// VOICE STATE UPDATE
+// =========================
+
+client.on(
+  Events.VoiceStateUpdate,
+  async (oldState, newState) => {
+
+    try {
+
+      // Пользователь зашёл
+      // в "Создать комнату"
+
+      if (
+        newState.channelId ===
+        global.qenuChannels?.createRoom?.id
+      ) {
+        await createTempVoice(
+          newState
+        );
+      }
+
+      // Пользователь вышел
+      // из старой комнаты
+
+      if (
+        oldState.channel &&
+        oldState.channelId !==
+          newState.channelId
+      ) {
+        await cleanupTempVoice(
+          oldState.channel
+        );
+      }
+
+    } catch (error) {
+      console.error(
+        "Ошибка VoiceStateUpdate:",
+        error
+      );
+    }
+  }
+);
+
+// =========================
+// НОВЫЙ УЧАСТНИК
+// =========================
+
+client.on(
+  Events.GuildMemberAdd,
+  async member => {
+
+    try {
+
+      const role =
+        global.qenuRoles?.member;
+
+      if (role) {
+        await member.roles.add(role);
+      }
+
+      const channel =
+        global.qenuChannels?.joinLogs;
+
+      if (channel) {
+
+        const embed = new EmbedBuilder()
+          .setTitle("📥 Новый участник")
+          .setDescription(
+            `${member} присоединился к серверу.`
+          )
+          .addFields({
+            name: "Пользователь",
+            value:
+              `${member.user.tag}\nID: ${member.id}`
+          })
+          .setColor(0x57F287)
+          .setThumbnail(
+            member.user.displayAvatarURL()
+          )
+          .setTimestamp();
+
+        await channel.send({
+          embeds: [embed]
+        });
+      }
+
+    } catch (error) {
+      console.error(
+        "Ошибка GuildMemberAdd:",
+        error
+      );
+    }
+  }
+);
+
+// =========================
+// УШЁЛ С СЕРВЕРА
+// =========================
+
+client.on(
+  Events.GuildMemberRemove,
+  async member => {
+
+    try {
+
+      const channel =
+        global.qenuChannels?.joinLogs;
+
+      if (!channel) return;
+
+      const embed = new EmbedBuilder()
+        .setTitle("📤 Участник покинул сервер")
+        .setDescription(
+          `${member.user.tag} покинул сервер.`
+        )
+        .addFields({
+          name: "ID",
+          value: member.id
+        })
+        .setColor(0xED4245)
+        .setTimestamp();
+
+      await channel.send({
+        embeds: [embed]
+      });
+
+    } catch (error) {
+      console.error(
+        "Ошибка GuildMemberRemove:",
+        error
+      );
+    }
+  }
+);
+
+// =========================
+// УДАЛЕНИЕ СООБЩЕНИЯ
+// =========================
+
+client.on(
+  Events.MessageDelete,
+  async message => {
+
+    try {
+
+      if (!message.guild) return;
+
+      const channel =
+        global.qenuChannels?.moderationLogs;
+
+      if (!channel) return;
+
+      if (message.author?.bot) return;
+
+      const content =
+        message.content ||
+        "Текст сообщения недоступен.";
+
+      const embed = new EmbedBuilder()
+        .setTitle("🗑 Сообщение удалено")
+        .addFields(
+          {
+            name: "Автор",
+            value:
+              message.author
+                ? `${message.author} (${message.author.tag})`
+                : "Неизвестно"
+          },
+          {
+            name: "Канал",
+            value:
+              `${message.channel}`
+          },
+          {
+            name: "Сообщение",
+            value:
+              content.slice(0, 1000)
+          }
+        )
+        .setColor(0xED4245)
+        .setTimestamp();
+
+      await channel.send({
+        embeds: [embed]
+      });
+
+    } catch (error) {
+      console.error(
+        "Ошибка MessageDelete:",
+        error
+      );
+    }
+  }
+);
+
+// =========================
+// ОБРАБОТКА ОШИБОК
+// =========================
+
+client.on(
+  Events.Error,
+  error => {
+    console.error(
+      "Discord Client Error:",
+      error
+    );
+  }
+);
+
+process.on(
+  "unhandledRejection",
+  error => {
+    console.error(
+      "Unhandled Promise Rejection:",
+      error
+    );
+  }
+);
+
+process.on(
+  "uncaughtException",
+  error => {
+    console.error(
+      "Uncaught Exception:",
+      error
+    );
+  }
+);
+
+// =========================
+// ЗАПУСК БОТА
+// =========================
+
+client.login(TOKEN);
